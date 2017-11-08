@@ -121,7 +121,10 @@ jobs:
         - image: circleci/node:8
       steps:
           - checkout
-          - curl -F "file=@deploy/testci.ipa" -F "token=efdcced65c4f355b0d27eeb30fc671f570e39806" -F "message=sample" https://deploygate.com/api/users/Vinhhp193042/apps
+          - restore-cache: *restore-node-cache
+          - run: *install-node-dependencies
+          - save-cache: *save-node-cache
+          - run: curl -F "file=@deploy/testci.ipa" -F "token=efdcced65c4f355b0d27eeb30fc671f570e39806" -F "message=sample" https://deploygate.com/api/users/Vinhhp193042/apps
   build-js-bundle:
     <<: *defaults
     docker:
