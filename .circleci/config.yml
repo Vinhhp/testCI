@@ -233,11 +233,14 @@ workflows:
     version: 2
     test_android:
         jobs:
+            - hold:
+                type: approval
             - build-js-bundle:
                 filters: *filter-ignore-gh-pages
             - test-android:
                 requires:
                     - build-js-bundle
+                    - hold
 
     test_ios:
         jobs:
